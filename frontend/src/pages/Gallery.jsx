@@ -6,16 +6,7 @@ import useSeo from "../lib/useSeo";
 
 const FILTERS = ["All", "Saree", "Lehenga", "Gown", "Reel"];
 
-const SEED = [
-  { id: "s1", secure_url: "https://images.pexels.com/photos/36951400/pexels-photo-36951400.jpeg", resource_type: "image", category: "Saree" },
-  { id: "s2", secure_url: "https://images.pexels.com/photos/30703866/pexels-photo-30703866.jpeg", resource_type: "image", category: "Saree" },
-  { id: "s3", secure_url: "https://images.unsplash.com/photo-1679006831648-7c9ea12e5807", resource_type: "image", category: "Saree" },
-  { id: "l1", secure_url: "https://images.unsplash.com/photo-1711130388758-2ccf44bb735c", resource_type: "image", category: "Lehenga" },
-  { id: "l2", secure_url: "https://images.pexels.com/photos/33343580/pexels-photo-33343580.jpeg", resource_type: "image", category: "Lehenga" },
-  { id: "l3", secure_url: "https://images.pexels.com/photos/12062663/pexels-photo-12062663.jpeg", resource_type: "image", category: "Lehenga" },
-  { id: "g1", secure_url: "https://images.pexels.com/photos/36414504/pexels-photo-36414504.jpeg", resource_type: "image", category: "Gown" },
-  { id: "g2", secure_url: "https://images.pexels.com/photos/1457977/pexels-photo-1457977.jpeg", resource_type: "image", category: "Gown" },
-];
+const SEED = []; // No hardcoded fallbacks — gallery shows only admin-uploaded media
 
 export default function Gallery() {
   useSeo({

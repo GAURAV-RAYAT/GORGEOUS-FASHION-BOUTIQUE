@@ -31,16 +31,7 @@ const COLLECTIONS = [
   { title: "Designer Gowns", img: "https://images.pexels.com/photos/1457977/pexels-photo-1457977.jpeg", body: "Evening gowns, reception outfits, and cocktail silhouettes — crafted in silk, organza, and velvet with Indo-Western tailoring. Each gown is sculpted on the body for an impeccable fit.", cat: "Gown" },
 ];
 
-const SEED_MEDIA = [
-  { secure_url: "https://images.pexels.com/photos/30703866/pexels-photo-30703866.jpeg", category: "Saree", resource_type: "image" },
-  { secure_url: "https://images.unsplash.com/photo-1679006831648-7c9ea12e5807", category: "Saree", resource_type: "image" },
-  { secure_url: "https://images.pexels.com/photos/1457977/pexels-photo-1457977.jpeg", category: "Gown", resource_type: "image" },
-  { secure_url: "https://images.pexels.com/photos/33343580/pexels-photo-33343580.jpeg", category: "Lehenga", resource_type: "image" },
-  { secure_url: "https://images.pexels.com/photos/12062663/pexels-photo-12062663.jpeg", category: "Lehenga", resource_type: "image" },
-  { secure_url: "https://images.unsplash.com/photo-1711130388758-2ccf44bb735c", category: "Lehenga", resource_type: "image" },
-  { secure_url: "https://images.pexels.com/photos/36951400/pexels-photo-36951400.jpeg", category: "Saree", resource_type: "image" },
-  { secure_url: "https://images.pexels.com/photos/36414504/pexels-photo-36414504.jpeg", category: "Gown", resource_type: "image" },
-];
+const SEED_MEDIA = []; // No hardcoded fallbacks — section shows only admin-uploaded media
 
 const STATS = [
   { n: "5000+", t: "Brides styled" },
@@ -99,7 +90,7 @@ export default function Landing() {
   };
 
   const featuredMedia = media.filter((m) => m.featured);
-  const featured = (featuredMedia.length ? featuredMedia : (media.length ? media : SEED_MEDIA)).slice(0, 10);
+  const featured = (featuredMedia.length ? featuredMedia : media).slice(0, 10);
   const reels = media.filter((m) => m.resource_type === "video");
 
   return (
@@ -109,36 +100,38 @@ export default function Landing() {
       {/* HERO */}
       <HeroCarousel />
 
-      {/* FEATURED COLLECTION CAROUSEL */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20" data-testid="featured-section">
-        <div className="text-center mb-8 md:mb-12">
-          <div className="gold-divider mb-3">{settings?.signature_subtitle || "New Season 2026"}</div>
-          <h2 className="font-display text-3xl md:text-5xl text-burgundy">{settings?.signature_title || "Signature Collection"}</h2>
-        </div>
-        <Carousel testId="featured-carousel" slidesToShow={{ base: 2, md: 3, lg: 4 }}>
-          {featured.map((m, i) => (
-            <Link key={i} to={`/gallery?cat=${m.category || "All"}`} className="group block">
-              <div className="relative aspect-[3/4] overflow-hidden bg-beige-light border border-gold/20">
-                {m.resource_type === "video" ? (
-                  <video src={m.secure_url} muted loop playsInline className="w-full h-full object-cover" />
-                ) : (
-                  <img src={m.secure_url} alt={m.category} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                )}
-                <div className="absolute top-3 left-3 bg-beige/90 text-burgundy text-[10px] uppercase tracking-widest px-2 py-1">
-                  {m.category}
+      {/* FEATURED COLLECTION CAROUSEL — shows only when admin has uploaded media */}
+      {featured.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20" data-testid="featured-section">
+          <div className="text-center mb-8 md:mb-12">
+            <div className="gold-divider mb-3">{settings?.signature_subtitle || "New Season 2026"}</div>
+            <h2 className="font-display text-3xl md:text-5xl text-burgundy">{settings?.signature_title || "Signature Collection"}</h2>
+          </div>
+          <Carousel testId="featured-carousel" slidesToShow={{ base: 2, md: 3, lg: 4 }}>
+            {featured.map((m, i) => (
+              <Link key={i} to={`/gallery?cat=${m.category || "All"}`} className="group block">
+                <div className="relative aspect-[3/4] overflow-hidden bg-beige-light border border-gold/20">
+                  {m.resource_type === "video" ? (
+                    <video src={m.secure_url} muted loop playsInline className="w-full h-full object-cover" />
+                  ) : (
+                    <img src={m.secure_url} alt={m.category} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  )}
+                  <div className="absolute top-3 left-3 bg-beige/90 text-burgundy text-[10px] uppercase tracking-widest px-2 py-1">
+                    {m.category}
+                  </div>
                 </div>
-              </div>
-              <div className="pt-3 text-xs md:text-sm font-body text-ink uppercase tracking-wider">{m.category} · Handcrafted</div>
-              <div className="text-[11px] text-ink/60 mt-0.5">Custom fit · Delhi atelier</div>
+                <div className="pt-3 text-xs md:text-sm font-body text-ink uppercase tracking-wider">{m.category} · Handcrafted</div>
+                <div className="text-[11px] text-ink/60 mt-0.5">Custom fit · Delhi atelier</div>
+              </Link>
+            ))}
+          </Carousel>
+          <div className="text-center mt-10">
+            <Link to="/gallery" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-burgundy border-b border-gold pb-1 hover:text-burgundy-dark">
+              View All <ArrowRight size={14} />
             </Link>
-          ))}
-        </Carousel>
-        <div className="text-center mt-10">
-          <Link to="/gallery" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-burgundy border-b border-gold pb-1 hover:text-burgundy-dark">
-            View All <ArrowRight size={14} />
-          </Link>
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* MOOD TILES — 4 banners like byshree */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 md:pb-20" data-testid="mood-section">
