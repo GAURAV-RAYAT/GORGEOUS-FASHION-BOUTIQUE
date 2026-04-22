@@ -98,9 +98,16 @@ export default function AdminDashboard() {
   };
 
   const deleteMedia = async (id) => {
-    if (!confirm("Delete this media?")) return;
-    await api.delete(`/media/${id}`);
-    toast.success("Deleted"); refresh();
+    if (!window.confirm("Delete this media permanently?")) return;
+    try {
+      const res = await api.delete(`/media/${id}`);
+      console.log("delete response", res.status, res.data);
+      setMedia((prev) => prev.filter((m) => m.id !== id));
+      toast.success("Deleted");
+    } catch (e) {
+      console.error("delete failed", e);
+      toast.error(e?.response?.data?.detail || e?.message || "Delete failed");
+    }
   };
 
   const setBookingStatus = async (id, status) => {
