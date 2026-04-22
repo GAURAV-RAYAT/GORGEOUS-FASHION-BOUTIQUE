@@ -98,15 +98,18 @@ export default function AdminDashboard() {
   };
 
   const deleteMedia = async (id) => {
-    if (!window.confirm("Delete this media permanently?")) return;
     try {
-      const res = await api.delete(`/media/${id}`);
-      console.log("delete response", res.status, res.data);
+      await api.delete(`/media/${id}`);
       setMedia((prev) => prev.filter((m) => m.id !== id));
       toast.success("Deleted");
     } catch (e) {
-      console.error("delete failed", e);
-      toast.error(e?.response?.data?.detail || e?.message || "Delete failed");
+      if (e?.response?.status === 401) {
+        toast.error("Session expired — logging in again");
+        localStorage.clear();
+        nav("/admin/login");
+      } else {
+        toast.error(e?.response?.data?.detail || e?.message || "Delete failed");
+      }
     }
   };
 
@@ -127,7 +130,6 @@ export default function AdminDashboard() {
     refresh();
   };
   const deleteReview = async (id) => {
-    if (!window.confirm("Delete this review?")) return;
     try {
       await api.delete(`/reviews/${id}`);
       setReviews((prev) => prev.filter((r) => r.id !== id));
