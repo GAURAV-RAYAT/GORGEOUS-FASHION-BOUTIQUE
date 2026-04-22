@@ -1,0 +1,152 @@
+{
+  "theme": "light",
+  "archetype": "5 (Jewel & Luxury - adapted to Light Theme)",
+  "brand": {
+    "name": "गॉर्जियस Fashion Boutique",
+    "tagline": "Elegance in Every Thread",
+    "location": "govindpuri kalkaji street no.-08, Delhi, India 110019",
+    "contact": {
+      "phone": "+91 8587008027",
+      "email": "jiyarayat207@gmail.com",
+      "whatsapp": "+91 8587008027"
+    },
+    "logo_url": "https://customer-assets.emergentagent.com/job_156f2e43-3875-46c6-9d87-ecfb70a32d0e/artifacts/jwt0q0xb_image.png"
+  },
+  "colors": {
+    "primary": "#6E2C2C",
+    "primary_hover": "#5A2323",
+    "background": "#E6C7A8",
+    "surface": "#F2DEC6",
+    "surface_glass": "rgba(230, 199, 168, 0.8)",
+    "highlight": "#C8A96A",
+    "highlight_hover": "#B59657",
+    "text": "#3A1F1F",
+    "text_light": "#5A3A3A",
+    "border": "#C8A96A",
+    "whatsapp": "#25D366"
+  },
+  "typography": {
+    "font_families": {
+      "headings": "'Playfair Display', serif",
+      "body": "'Hind', sans-serif",
+      "hindi_support": "'Tiro Devanagari Hindi', serif"
+    },
+    "scales": {
+      "h1": "text-5xl md:text-6xl tracking-tight text-[#6E2C2C] font-headings",
+      "h2": "text-3xl md:text-4xl tracking-tight text-[#6E2C2C] font-headings",
+      "h3": "text-2xl md:text-3xl text-[#6E2C2C] font-headings",
+      "body": "text-base md:text-lg text-[#3A1F1F] font-body leading-relaxed",
+      "small": "text-sm text-[#5A3A3A] font-body uppercase tracking-widest",
+      "hindi_text": "text-xl font-hindi_support text-[#6E2C2C]"
+    }
+  },
+  "layout_and_spacing": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-20 md:py-32",
+    "gap_standard": "gap-8 md:gap-12",
+    "radius": {
+      "card": "rounded-xl",
+      "button": "rounded-none",
+      "image": "rounded-t-full rounded-b-xl"
+    }
+  },
+  "components": {
+    "navbar": {
+      "style": "sticky top-0 z-50 bg-[#E6C7A8]/90 backdrop-blur-xl border-b border-[#C8A96A]/30 transition-all duration-300",
+      "links": "text-[#3A1F1F] hover:text-[#6E2C2C] font-body tracking-wide uppercase text-sm",
+      "cta": "bg-[#6E2C2C] text-[#E6C7A8] hover:bg-[#5A2323] px-6 py-2 uppercase tracking-wider text-sm transition-colors"
+    },
+    "hero": {
+      "style": "relative min-h-[90vh] flex items-center justify-center bg-[#E6C7A8] overflow-hidden",
+      "content_wrapper": "relative z-10 text-center max-w-4xl mx-auto px-4",
+      "title_animation": "framer-motion fade-up and subtle scale",
+      "overlay": "bg-gradient-to-b from-transparent to-[#E6C7A8]/50"
+    },
+    "buttons": {
+      "primary": "bg-[#6E2C2C] text-[#E6C7A8] hover:bg-[#5A2323] transition-all duration-300 uppercase tracking-widest font-semibold px-8 py-4 border border-transparent",
+      "secondary": "bg-transparent text-[#6E2C2C] border border-[#C8A96A] hover:bg-[#C8A96A]/10 transition-all duration-300 uppercase tracking-widest px-8 py-4",
+      "gold_accent": "bg-[#C8A96A] text-[#3A1F1F] hover:bg-[#B59657] transition-all duration-300 uppercase tracking-widest px-8 py-4 shadow-[0_0_15px_rgba(200,169,106,0.3)]"
+    },
+    "cards": {
+      "category": "group relative overflow-hidden rounded-t-full bg-[#F2DEC6] border border-[#C8A96A]/30 aspect-[3/4] cursor-pointer",
+      "category_image": "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105",
+      "category_overlay": "absolute inset-0 bg-gradient-to-t from-[#6E2C2C]/80 via-transparent to-transparent flex items-end justify-center pb-8",
+      "category_title": "text-2xl font-headings text-[#E6C7A8] tracking-wider"
+    },
+    "gallery_grid": {
+      "style": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]",
+      "item": "relative overflow-hidden rounded-lg group",
+      "filters": "flex flex-wrap justify-center gap-4 mb-10"
+    },
+    "admin_panel": {
+      "sidebar": "bg-[#6E2C2C] text-[#E6C7A8] min-h-screen p-6",
+      "content": "bg-white p-8",
+      "card": "bg-white border border-[#E6C7A8] rounded-xl shadow-sm p-6",
+      "table_header": "bg-[#F2DEC6] text-[#3A1F1F]"
+    },
+    "whatsapp_fab": {
+      "style": "fixed bottom-8 right-8 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center animate-bounce-slow"
+    }
+  },
+  "media": {
+    "hero_images": [
+      {
+        "url": "https://images.pexels.com/photos/33343580/pexels-photo-33343580.jpeg",
+        "description": "Beautiful Indian bride in a pink lehenga, perfect for hero banner"
+      },
+      {
+        "url": "https://images.pexels.com/photos/12062663/pexels-photo-12062663.jpeg",
+        "description": "Red lehenga graceful pose, elegant for banner"
+      }
+    ],
+    "categories": [
+      {
+        "name": "Saree",
+        "url": "https://images.pexels.com/photos/36951400/pexels-photo-36951400.jpeg",
+        "description": "Stunning portrait of an Indian woman wearing a colorful saree"
+      },
+      {
+        "name": "Lehenga",
+        "url": "https://images.unsplash.com/photo-1711130388758-2ccf44bb735c",
+        "description": "Woman in red and gold bridal outfit"
+      },
+      {
+        "name": "Gown",
+        "url": "https://images.pexels.com/photos/36414504/pexels-photo-36414504.jpeg",
+        "description": "Luxurious purple gown"
+      }
+    ],
+    "gallery_filler_images": [
+      {
+        "url": "https://images.pexels.com/photos/30703866/pexels-photo-30703866.jpeg",
+        "category": "Saree"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1679006831648-7c9ea12e5807",
+        "category": "Saree"
+      },
+      {
+        "url": "https://images.pexels.com/photos/1457977/pexels-photo-1457977.jpeg",
+        "category": "Gown"
+      }
+    ]
+  },
+  "animations": {
+    "hover": "Subtle scale up (scale-105) for images, smooth background color transitions for buttons",
+    "entrance": "Staggered fade-up for grid items and typography using Framer Motion",
+    "parallax": "Subtle parallax on hero image to create depth"
+  },
+  "instructions_to_main_agent": [
+    "Install required dependencies: `lucide-react`, `framer-motion`, `@fontsource/playfair-display`, `@fontsource/hind`, `@fontsource/tiro-devanagari-hindi`.",
+    "Update `tailwind.config.js` with the custom colors (burgundy, beige, gold, text) provided in the palette.",
+    "Do NOT use pure white or generic grays. Stick strictly to the Beige (#E6C7A8) and Burgundy (#6E2C2C) theme for a premium feel.",
+    "For the Landing page hero section, create an elegant composition using the provided logo URL and the hero image.",
+    "For the Category section, use arch-shaped cards (`rounded-t-full`) to give a traditional Indian boutique aesthetic.",
+    "In the Gallery page, implement a masonry grid layout for images and Instagram reels/videos.",
+    "In the Admin panel, use standard Shadcn components but style them using the brand palette (Burgundy sidebar, Beige highlights).",
+    "Ensure all interactive elements have `data-testid` attributes (e.g., `data-testid=\"book-appointment-btn\"`).",
+    "Add a sticky floating WhatsApp button at the bottom right with a pulsing or bouncing animation.",
+    "Use Shadcn calendar and form components for the Appointment Booking section.",
+    "For all images, use ONLY the URLs provided in the `media` section. Do NOT use placeholders."
+  ]
+}
