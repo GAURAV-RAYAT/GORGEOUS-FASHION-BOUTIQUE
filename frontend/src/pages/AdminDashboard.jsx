@@ -120,9 +120,14 @@ export default function AdminDashboard() {
     refresh();
   };
   const deleteReview = async (id) => {
-    if (!confirm("Delete this review?")) return;
-    await api.delete(`/reviews/${id}`);
-    toast.success("Deleted"); refresh();
+    if (!window.confirm("Delete this review?")) return;
+    try {
+      await api.delete(`/reviews/${id}`);
+      setReviews((prev) => prev.filter((r) => r.id !== id));
+      toast.success("Deleted");
+    } catch (e) {
+      toast.error(e?.response?.data?.detail || e?.message || "Delete failed");
+    }
   };
 
   // ---- Settings ----
@@ -270,15 +275,19 @@ export default function AdminDashboard() {
                     </div>
                   )}
                   {/* Always-visible action buttons (works on mobile + desktop) */}
-                  <div className="absolute top-2 right-2 flex gap-1.5">
-                    <button data-testid={`feature-${m.id}`} onClick={() => toggleFeatured(m)}
-                      className={`${m.featured ? "bg-gold text-burgundy-deep" : "bg-beige/95 text-burgundy"} p-2 border border-gold/60 shadow hover:scale-110 transition-transform`}
+                  <div className="absolute top-2 right-2 flex gap-1.5 z-20">
+                    <button data-testid={`feature-${m.id}`}
+                      onClick={(e) => { e.stopPropagation(); e.preventDefault(); toggleFeatured(m); }}
+                      type="button"
+                      className={`${m.featured ? "bg-gold text-burgundy-deep" : "bg-beige/95 text-burgundy"} p-2 border border-gold/60 shadow hover:scale-110 transition-transform pointer-events-auto`}
                       title={m.featured ? "Unfeature" : "Feature in Signature Collection"}
                       aria-label="Toggle featured">
                       <Star size={14} fill={m.featured ? "#3A1F1F" : "transparent"} />
                     </button>
-                    <button data-testid={`delete-${m.id}`} onClick={() => deleteMedia(m.id)}
-                      className="bg-burgundy text-beige p-2 shadow hover:bg-burgundy-dark hover:scale-110 transition-transform"
+                    <button data-testid={`delete-${m.id}`}
+                      onClick={(e) => { e.stopPropagation(); e.preventDefault(); deleteMedia(m.id); }}
+                      type="button"
+                      className="bg-burgundy text-beige p-2 shadow hover:bg-burgundy-dark hover:scale-110 transition-transform pointer-events-auto"
                       aria-label="Delete">
                       <Trash2 size={14} />
                     </button>
