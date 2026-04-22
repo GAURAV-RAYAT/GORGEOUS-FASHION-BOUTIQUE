@@ -4,11 +4,17 @@ import { toast, Toaster } from "sonner";
 import { Loader2, CalendarCheck } from "lucide-react";
 import { format } from "date-fns";
 import api, { BRAND, waLink } from "../lib/api";
+import useSeo from "../lib/useSeo";
 
 const TIME_SLOTS = ["10:30", "11:30", "12:30", "14:00", "15:30", "17:00", "18:30"];
 const CATEGORIES = ["Saree", "Lehenga", "Gown", "Consultation"];
 
 export default function Book() {
+  useSeo({
+    title: "Book an Appointment — Gorgeous Fashion Boutique Delhi",
+    description: "Reserve a private styling appointment at Gorgeous Fashion Boutique, Kalkaji. Choose date & time, we'll confirm on WhatsApp.",
+    path: "/book",
+  });
   const [date, setDate] = useState(new Date(Date.now() + 24 * 3600 * 1000));
   const [time, setTime] = useState("11:30");
   const [category, setCategory] = useState("Lehenga");

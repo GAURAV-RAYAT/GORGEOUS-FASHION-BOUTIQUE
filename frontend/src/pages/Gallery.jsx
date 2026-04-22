@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import api from "../lib/api";
+import useSeo from "../lib/useSeo";
 
 const FILTERS = ["All", "Saree", "Lehenga", "Gown", "Reel"];
 
@@ -17,6 +18,11 @@ const SEED = [
 ];
 
 export default function Gallery() {
+  useSeo({
+    title: "Gallery — Sarees, Lehengas & Gowns | Gorgeous Fashion Boutique Delhi",
+    description: "Browse handpicked sarees, bridal lehengas, and designer gowns from Gorgeous Fashion Boutique, Kalkaji, Delhi.",
+    path: "/gallery",
+  });
   const loc = useLocation();
   const initial = new URLSearchParams(loc.search).get("cat") || "All";
   const [filter, setFilter] = useState(initial);

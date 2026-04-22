@@ -29,6 +29,16 @@ export default function Footer() {
             <li><Link to="/gallery" className="hover:text-gold">Gallery</Link></li>
             <li><Link to="/book" className="hover:text-gold">Book Appointment</Link></li>
             <li><Link to="/contact" className="hover:text-gold">Contact</Link></li>
+            <li>
+              <Link
+                to="/admin/login"
+                data-testid="footer-admin-login"
+                className="hover:text-gold inline-flex items-center gap-1.5"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Admin Login
+              </Link>
+            </li>
           </ul>
         </div>
 

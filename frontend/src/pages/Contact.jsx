@@ -2,8 +2,14 @@ import { useState } from "react";
 import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { toast, Toaster } from "sonner";
 import api, { BRAND } from "../lib/api";
+import useSeo from "../lib/useSeo";
 
 export default function Contact() {
+  useSeo({
+    title: "Contact Us — Gorgeous Fashion Boutique | Govindpuri, Kalkaji, Delhi",
+    description: "Visit Gorgeous Fashion Boutique at 1338/8 Govind Puri, Kalkaji, New Delhi 110019. Call +91 8587008027 or send a message.",
+    path: "/contact",
+  });
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
   const [busy, setBusy] = useState(false);
 

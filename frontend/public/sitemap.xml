@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
+  <url>
+    <loc>https://gorgeousfashionboutique.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://customer-assets.emergentagent.com/job_priceless-germain-8/artifacts/a62v7x5o_Screenshot%202026-04-22%20190513.png</image:loc>
+      <image:title>Gorgeous Fashion Boutique Logo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://gorgeousfashionboutique.com/gallery</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gorgeousfashionboutique.com/book</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gorgeousfashionboutique.com/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

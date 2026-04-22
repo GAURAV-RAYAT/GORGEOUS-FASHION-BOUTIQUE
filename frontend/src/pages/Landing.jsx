@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Star, Phone, MessageCircle, Send, Loader2 } from "lucide-react";
 import { toast, Toaster } from "sonner";
 import api, { BRAND, waLink } from "../lib/api";
+import useSeo from "../lib/useSeo";
 
 const CATEGORIES = [
   {
@@ -40,6 +41,11 @@ const GALLERY_SEED = [
 ];
 
 export default function Landing() {
+  useSeo({
+    title: "Gorgeous Fashion Boutique — Premium Sarees, Lehengas & Gowns in Kalkaji, Delhi",
+    description: "गॉर्जियस Fashion Boutique — Delhi's boutique for bespoke bridal lehengas, designer sarees and custom gowns. Govindpuri, Kalkaji Metro, New Delhi 110019. Book an appointment.",
+    path: "/",
+  });
   const [reviews, setReviews] = useState([]);
   const [media, setMedia] = useState([]);
   const [rvForm, setRvForm] = useState({ name: "", rating: 5, comment: "" });
