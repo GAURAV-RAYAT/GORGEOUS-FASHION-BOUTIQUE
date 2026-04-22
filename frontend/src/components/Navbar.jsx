@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, MessageCircle, Calendar, Phone } from "lucide-react";
+import { Menu, X, MessageCircle, Calendar } from "lucide-react";
 import { useState } from "react";
 import { BRAND, waLink } from "../lib/api";
+import { useSettings } from "../lib/settings";
 
 const links = [
   { to: "/", label: "Home" },
@@ -15,19 +16,22 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const loc = useLocation();
+  const { settings } = useSettings();
+  const logo = settings?.logo_url || BRAND.logo;
+  const phone = settings?.phone || BRAND.phone;
 
   return (
     <header data-testid="navbar" className="sticky top-0 z-40">
       {/* announcement bar */}
       <div className="bg-burgundy-deep text-beige text-[11px] md:text-xs tracking-[0.3em] uppercase py-2 text-center">
         <span className="hidden sm:inline">Free Styling Consultation · Custom Tailoring · </span>
-        <a href={`tel:${BRAND.phone}`} className="hover:text-gold">Call {BRAND.phone}</a>
+        <a href={`tel:${phone}`} className="hover:text-gold">Call {phone}</a>
       </div>
       {/* main bar */}
       <div className="bg-beige/95 backdrop-blur-xl border-b border-gold/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
           <Link to="/" data-testid="nav-logo" className="flex items-center gap-3">
-            <img src={BRAND.logo} alt="Gorgeous Fashion Boutique" className="h-12 w-12 md:h-14 md:w-14 object-contain rounded" />
+            <img src={logo} alt="Gorgeous Fashion Boutique" className="h-12 w-12 md:h-14 md:w-14 object-contain rounded" />
             <div className="hidden sm:block leading-tight">
               <div className="font-hindi text-burgundy text-base md:text-lg">गॉर्जियस</div>
               <div className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase text-ink/70">Fashion Boutique</div>

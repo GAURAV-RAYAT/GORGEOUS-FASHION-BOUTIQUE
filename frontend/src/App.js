@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Book from "./pages/Book";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import { SettingsProvider } from "./lib/settings";
 
 function Layout({ children }) {
   const loc = useLocation();
@@ -24,18 +25,20 @@ function Layout({ children }) {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/book" element={<Book />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <SettingsProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/book" element={<Book />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </SettingsProvider>
   );
 }
 

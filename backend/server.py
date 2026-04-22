@@ -122,6 +122,16 @@ class Review(ReviewCreate):
     approved: bool = True
 
 
+class HeroSlide(BaseModel):
+    image: str = ""
+    eyebrow: str = ""
+    title: str = ""
+    subtitle: str = ""
+    cta_label: str = "Book Appointment"
+    cta_link: str = "/book"
+    align: str = "left"
+
+
 class SiteSettings(BaseModel):
     tagline: str = "Elegance in Every Thread"
     hero_subtitle: str = "Crafted with love in the heart of Delhi — bespoke sarees, lehengas, and gowns for the moments that matter."
@@ -131,6 +141,32 @@ class SiteSettings(BaseModel):
     whatsapp: str = "918587008027"
     instagram_url: str = "https://instagram.com/"
     map_embed: str = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.6194447!2d77.2581853!3d28.5394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2sGovindpuri%2C%20Kalkaji%2C%20New%20Delhi!5e0!3m2!1sen!2sin!4v1700000000000"
+    logo_url: str = "https://customer-assets.emergentagent.com/job_priceless-germain-8/artifacts/a62v7x5o_Screenshot%202026-04-22%20190513.png"
+    hero_slides: List[HeroSlide] = Field(default_factory=lambda: [
+        HeroSlide(
+            image="https://images.pexels.com/photos/33343580/pexels-photo-33343580.jpeg",
+            eyebrow="Bridal Season 2026",
+            title="Hand-crafted Lehengas",
+            subtitle="Book your private fitting",
+            cta_label="Book Appointment",
+            cta_link="/book",
+            align="left",
+        ),
+        HeroSlide(
+            image="https://images.unsplash.com/photo-1711130388758-2ccf44bb735c",
+            eyebrow="Festive Radiance",
+            title="Heirloom Sarees & Gowns",
+            subtitle="Explore our atelier",
+            cta_label="View Gallery",
+            cta_link="/gallery",
+            align="right",
+        ),
+    ])
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str
+    new_password: str = Field(min_length=6)
 
 
 # ---------- Utilities ----------
@@ -265,6 +301,18 @@ async def login(req: LoginRequest):
 @api.get("/auth/me")
 async def me(current: dict = Depends(get_current_admin)):
     return current
+
+
+@api.post("/auth/change-password")
+async def change_password(req: ChangePasswordRequest, current: dict = Depends(get_current_admin)):
+    user = await db.admins.find_one({"email": current["email"]})
+    if not user or not verify_password(req.current_password, user["password_hash"]):
+        raise HTTPException(400, "Current password is incorrect")
+    await db.admins.update_one(
+        {"email": current["email"]},
+        {"$set": {"password_hash": hash_password(req.new_password)}}
+    )
+    return {"ok": True}
 
 
 # ---------- Cloudinary ----------
@@ -413,6 +461,12 @@ async def list_reviews():
     return docs
 
 
+@api.get("/reviews/all", response_model=List[Review])
+async def list_reviews_all(current: dict = Depends(get_current_admin)):
+    docs = await db.reviews.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return docs
+
+
 @api.post("/reviews", response_model=Review)
 async def create_review(data: ReviewCreate):
     r = Review(**data.model_dump())
@@ -420,14 +474,30 @@ async def create_review(data: ReviewCreate):
     return r
 
 
+@api.patch("/reviews/{review_id}")
+async def update_review(review_id: str, patch: dict, current: dict = Depends(get_current_admin)):
+    allowed = {"approved", "comment", "rating", "name"}
+    clean = {k: v for k, v in patch.items() if k in allowed}
+    await db.reviews.update_one({"id": review_id}, {"$set": clean})
+    return {"ok": True}
+
+
+@api.delete("/reviews/{review_id}")
+async def delete_review(review_id: str, current: dict = Depends(get_current_admin)):
+    await db.reviews.delete_one({"id": review_id})
+    return {"ok": True}
+
+
 # ---------- Settings ----------
 @api.get("/settings")
 async def get_settings():
+    defaults = SiteSettings().model_dump()
     doc = await db.settings.find_one({"_id": "site"})
     if not doc:
-        return SiteSettings().model_dump()
+        return defaults
     doc.pop("_id", None)
-    return doc
+    # Merge: defaults provide any missing new fields added after seed
+    return {**defaults, **doc}
 
 
 @api.patch("/settings")
@@ -435,9 +505,7 @@ async def update_settings(patch: dict, current: dict = Depends(get_current_admin
     allowed = set(SiteSettings.model_fields.keys())
     clean = {k: v for k, v in patch.items() if k in allowed}
     await db.settings.update_one({"_id": "site"}, {"$set": clean}, upsert=True)
-    doc = await db.settings.find_one({"_id": "site"})
-    doc.pop("_id", None)
-    return doc
+    return await get_settings()
 
 
 @api.get("/")

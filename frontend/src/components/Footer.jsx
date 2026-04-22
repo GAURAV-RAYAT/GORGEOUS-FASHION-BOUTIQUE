@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import { Instagram, Phone, Mail, MapPin } from "lucide-react";
 import { BRAND } from "../lib/api";
+import { useSettings } from "../lib/settings";
 
 export default function Footer() {
+  const { settings } = useSettings();
+  const s = {
+    tagline: settings?.tagline || BRAND.tagline,
+    address: settings?.address || BRAND.address,
+    phone: settings?.phone || BRAND.phone,
+    email: settings?.email || BRAND.email,
+    instagram: settings?.instagram_url || BRAND.instagram,
+  };
   return (
     <footer
       data-testid="footer"
@@ -15,7 +24,7 @@ export default function Footer() {
             Fashion Boutique
           </div>
           <p className="text-sm text-beige/80 font-body leading-relaxed">
-            {BRAND.tagline}. A Delhi atelier crafting bespoke sarees, lehengas,
+            {s.tagline}. A Delhi atelier crafting bespoke sarees, lehengas,
             and gowns.
           </p>
         </div>
@@ -48,7 +57,7 @@ export default function Footer() {
           </div>
           <div className="flex items-start gap-3 text-sm text-beige/85">
             <MapPin size={16} className="mt-0.5 text-gold shrink-0" />
-            <span>{BRAND.address}</span>
+            <span>{s.address}</span>
           </div>
         </div>
 
@@ -57,13 +66,13 @@ export default function Footer() {
             Connect
           </div>
           <div className="space-y-3 text-sm">
-            <a href={`tel:${BRAND.phone}`} className="flex items-center gap-2 hover:text-gold">
-              <Phone size={14} /> {BRAND.phone}
+            <a href={`tel:${s.phone}`} className="flex items-center gap-2 hover:text-gold">
+              <Phone size={14} /> {s.phone}
             </a>
-            <a href={`mailto:${BRAND.email}`} className="flex items-center gap-2 hover:text-gold break-all">
-              <Mail size={14} /> {BRAND.email}
+            <a href={`mailto:${s.email}`} className="flex items-center gap-2 hover:text-gold break-all">
+              <Mail size={14} /> {s.email}
             </a>
-            <a href={BRAND.instagram} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-gold">
+            <a href={s.instagram} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-gold">
               <Instagram size={14} /> Instagram
             </a>
           </div>
