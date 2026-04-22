@@ -142,6 +142,8 @@ class SiteSettings(BaseModel):
     instagram_url: str = "https://instagram.com/"
     map_embed: str = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.6194447!2d77.2581853!3d28.5394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2sGovindpuri%2C%20Kalkaji%2C%20New%20Delhi!5e0!3m2!1sen!2sin!4v1700000000000"
     logo_url: str = "https://customer-assets.emergentagent.com/job_priceless-germain-8/artifacts/a62v7x5o_Screenshot%202026-04-22%20190513.png"
+    signature_title: str = "Signature Collection"
+    signature_subtitle: str = "New Season 2026"
     hero_slides: List[HeroSlide] = Field(default_factory=lambda: [
         HeroSlide(
             image="https://images.pexels.com/photos/33343580/pexels-photo-33343580.jpeg",
@@ -348,14 +350,24 @@ async def create_media(data: MediaCreate, current: dict = Depends(get_current_ad
 
 
 @api.get("/media", response_model=List[MediaItem])
-async def list_media(category: Optional[str] = None, resource_type: Optional[str] = None):
+async def list_media(category: Optional[str] = None, resource_type: Optional[str] = None, featured: Optional[bool] = None):
     q = {}
     if category and category.lower() != "all":
         q["category"] = category
     if resource_type:
         q["resource_type"] = resource_type
+    if featured is not None:
+        q["featured"] = featured
     docs = await db.media.find(q, {"_id": 0}).sort("created_at", -1).to_list(500)
     return docs
+
+
+@api.patch("/media/{media_id}")
+async def update_media(media_id: str, patch: dict, current: dict = Depends(get_current_admin)):
+    allowed = {"featured", "category", "title"}
+    clean = {k: v for k, v in patch.items() if k in allowed}
+    await db.media.update_one({"id": media_id}, {"$set": clean})
+    return {"ok": True}
 
 
 @api.delete("/media/{media_id}")

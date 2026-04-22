@@ -8,6 +8,7 @@ import {
 import { toast, Toaster } from "sonner";
 import api, { BRAND, waLink } from "../lib/api";
 import useSeo from "../lib/useSeo";
+import { useSettings } from "../lib/settings";
 import HeroCarousel from "../components/HeroCarousel";
 import Carousel from "../components/Carousel";
 
@@ -62,6 +63,7 @@ export default function Landing() {
     description: "गॉर्जियस Fashion Boutique — Delhi's boutique for bespoke bridal lehengas, designer sarees and custom gowns. Govindpuri, Kalkaji Metro, New Delhi 110019. Book an appointment.",
     path: "/",
   });
+  const { settings } = useSettings();
   const [reviews, setReviews] = useState([]);
   const [media, setMedia] = useState([]);
   const [rvForm, setRvForm] = useState({ name: "", rating: 5, comment: "" });
@@ -96,7 +98,8 @@ export default function Landing() {
     } catch { toast.error("Could not subscribe"); }
   };
 
-  const featured = (media.length ? media : SEED_MEDIA).slice(0, 10);
+  const featuredMedia = media.filter((m) => m.featured);
+  const featured = (featuredMedia.length ? featuredMedia : (media.length ? media : SEED_MEDIA)).slice(0, 10);
   const reels = media.filter((m) => m.resource_type === "video");
 
   return (
@@ -109,8 +112,8 @@ export default function Landing() {
       {/* FEATURED COLLECTION CAROUSEL */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20" data-testid="featured-section">
         <div className="text-center mb-8 md:mb-12">
-          <div className="gold-divider mb-3">New Season 2026</div>
-          <h2 className="font-display text-3xl md:text-5xl text-burgundy">Signature Collection</h2>
+          <div className="gold-divider mb-3">{settings?.signature_subtitle || "New Season 2026"}</div>
+          <h2 className="font-display text-3xl md:text-5xl text-burgundy">{settings?.signature_title || "Signature Collection"}</h2>
         </div>
         <Carousel testId="featured-carousel" slidesToShow={{ base: 2, md: 3, lg: 4 }}>
           {featured.map((m, i) => (
