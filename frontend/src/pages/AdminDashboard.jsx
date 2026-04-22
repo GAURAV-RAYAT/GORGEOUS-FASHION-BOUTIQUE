@@ -258,25 +258,28 @@ export default function AdminDashboard() {
         {tab === "media" && (
           <section>
             <h1 className="font-display text-3xl md:text-4xl text-burgundy mb-2">Gallery ({media.length})</h1>
-            <p className="text-ink/70 mb-6 text-sm">Click the <Star size={12} className="inline text-gold" /> star to feature an item on the landing page's <strong>Signature Collection</strong>. If none are featured, the most recent 10 are shown automatically.</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <p className="text-ink/70 mb-6 text-sm">Tap the <Star size={12} className="inline text-gold" /> star to feature an item on the landing page's <strong>Signature Collection</strong>. Tap the <Trash2 size={12} className="inline text-burgundy" /> trash icon to delete. If none are featured, the most recent 10 are shown automatically.</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {media.map((m) => (
-                <div key={m.id} className="border border-gold/30 bg-beige-light relative group aspect-square">
-                  {m.resource_type === "video" ? <video src={m.secure_url} className="w-full h-full object-cover" muted /> : <img src={m.secure_url} className="w-full h-full object-cover" alt="" />}
+                <div key={m.id} className="border border-gold/30 bg-beige-light relative aspect-square">
+                  {m.resource_type === "video" ? <video src={m.secure_url} className="w-full h-full object-cover" muted playsInline /> : <img src={m.secure_url} className="w-full h-full object-cover" alt="" />}
                   <div className="absolute top-2 left-2 text-[10px] bg-beige/90 text-burgundy px-2 py-0.5 uppercase tracking-wider">{m.category}</div>
                   {m.featured && (
                     <div className="absolute bottom-2 left-2 text-[10px] bg-gold text-burgundy-deep px-2 py-0.5 uppercase tracking-wider flex items-center gap-1">
                       <Star size={10} fill="#3A1F1F" strokeWidth={0} /> Featured
                     </div>
                   )}
-                  <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  {/* Always-visible action buttons (works on mobile + desktop) */}
+                  <div className="absolute top-2 right-2 flex gap-1.5">
                     <button data-testid={`feature-${m.id}`} onClick={() => toggleFeatured(m)}
-                      className={`${m.featured ? "bg-gold text-burgundy-deep" : "bg-beige text-burgundy"} p-2 border border-gold/50`}
-                      title={m.featured ? "Unfeature" : "Feature in Signature Collection"}>
+                      className={`${m.featured ? "bg-gold text-burgundy-deep" : "bg-beige/95 text-burgundy"} p-2 border border-gold/60 shadow hover:scale-110 transition-transform`}
+                      title={m.featured ? "Unfeature" : "Feature in Signature Collection"}
+                      aria-label="Toggle featured">
                       <Star size={14} fill={m.featured ? "#3A1F1F" : "transparent"} />
                     </button>
                     <button data-testid={`delete-${m.id}`} onClick={() => deleteMedia(m.id)}
-                      className="bg-burgundy text-beige p-2">
+                      className="bg-burgundy text-beige p-2 shadow hover:bg-burgundy-dark hover:scale-110 transition-transform"
+                      aria-label="Delete">
                       <Trash2 size={14} />
                     </button>
                   </div>
