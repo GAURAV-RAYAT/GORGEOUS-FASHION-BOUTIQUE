@@ -67,15 +67,24 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="border border-gold/40 h-80 w-full overflow-hidden">
+            <div className="border border-gold/40 h-80 w-full overflow-hidden relative">
               <iframe
                 title="map"
-                src="https://www.google.com/maps?q=Govindpuri+Kalkaji+Metro+New+Delhi+110019&output=embed"
+                src="https://www.google.com/maps?q=1338/8+Govind+Puri,+Kalkaji,+New+Delhi,+Delhi+110019&output=embed"
                 className="w-full h-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
+            <a
+              href="https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUqBggBEEUYOzIICAAQRRgnGDsyBggBEEUYOzIGCAIQIxgnMgcIAxAAGO8FMgoIBBAAGIAEGKIEMgoIBRAAGIAEGKIEMgoIBhAAGIAEGKIEMgcIBxAAGO8F0gEIMjY5OWowajSoAgGwAgHxBfhYEcXeSYSZ8QX4WBHF3kmEmQ&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KZGExfKm4Qw5MSNdWOxp_skY&daddr=1338/8+Govind+Puri,+Kalkaji,+New+Delhi,+Delhi+110019"
+              target="_blank"
+              rel="noreferrer"
+              data-testid="directions-btn"
+              className="inline-flex items-center justify-center gap-2 w-full bg-gold text-burgundy-deep py-3 text-xs uppercase tracking-[0.3em] hover:bg-gold-dark transition-all"
+            >
+              <MapPin size={14} /> Get Directions on Google Maps
+            </a>
           </div>
 
           {/* Form */}

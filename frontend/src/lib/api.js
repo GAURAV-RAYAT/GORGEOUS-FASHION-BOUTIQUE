@@ -21,7 +21,7 @@ export const BRAND = {
   whatsapp: "918587008027",
   email: "jiyarayat207@gmail.com",
   address: "Govindpuri, Kalkaji Metro No. 08, New Delhi – 110019",
-  logo: "https://customer-assets.emergentagent.com/job_156f2e43-3875-46c6-9d87-ecfb70a32d0e/artifacts/jwt0q0xb_image.png",
+  logo: "https://customer-assets.emergentagent.com/job_priceless-germain-8/artifacts/a62v7x5o_Screenshot%202026-04-22%20190513.png",
   instagram: "https://instagram.com/",
 };
 

@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ArrowRight, Star, Phone, MessageCircle } from "lucide-react";
+import { ArrowRight, Star, Phone, MessageCircle, Send, Loader2 } from "lucide-react";
+import { toast, Toaster } from "sonner";
 import api, { BRAND, waLink } from "../lib/api";
 
 const CATEGORIES = [
@@ -41,17 +42,39 @@ const GALLERY_SEED = [
 export default function Landing() {
   const [reviews, setReviews] = useState([]);
   const [media, setMedia] = useState([]);
+  const [rvForm, setRvForm] = useState({ name: "", rating: 5, comment: "" });
+  const [rvBusy, setRvBusy] = useState(false);
 
   useEffect(() => {
     api.get("/reviews").then((r) => setReviews(r.data)).catch(() => {});
     api.get("/media").then((r) => setMedia(r.data)).catch(() => {});
   }, []);
 
+  const submitReview = async (e) => {
+    e.preventDefault();
+    if (!rvForm.name || !rvForm.comment) {
+      toast.error("Please add your name and review");
+      return;
+    }
+    setRvBusy(true);
+    try {
+      const { data } = await api.post("/reviews", rvForm);
+      setReviews((prev) => [data, ...prev]);
+      setRvForm({ name: "", rating: 5, comment: "" });
+      toast.success("Thank you for your review!");
+    } catch {
+      toast.error("Could not submit review");
+    } finally {
+      setRvBusy(false);
+    }
+  };
+
   const previewMedia = media.slice(0, 6);
   const videoItems = media.filter((m) => m.resource_type === "video").slice(0, 3);
 
   return (
     <div data-testid="landing-page" className="bg-beige">
+      <Toaster position="top-center" richColors />
       {/* HERO */}
       <section className="relative min-h-[92vh] paisley-bg overflow-hidden noise-overlay">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
@@ -80,14 +103,6 @@ export default function Landing() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-20 text-center">
-          <motion.img
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            src={BRAND.logo}
-            alt="Logo"
-            className="h-40 md:h-52 w-auto mx-auto mb-8 drop-shadow-xl rounded-lg"
-          />
           <div className="gold-divider mb-6">DELHI · EST.</div>
           <motion.h1
             initial={{ y: 20, opacity: 0 }}
@@ -269,7 +284,7 @@ export default function Landing() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {reviews.slice(0, 3).map((r, i) => (
+            {reviews.slice(0, 6).map((r, i) => (
               <motion.div
                 key={r.id || i}
                 initial={{ opacity: 0, y: 20 }}
@@ -291,6 +306,65 @@ export default function Landing() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Leave a Review */}
+          <div className="mt-16 max-w-2xl mx-auto bg-beige border border-gold/40 p-8" data-testid="review-form">
+            <div className="gold-divider mb-4">Share Your Experience</div>
+            <h3 className="font-display text-3xl text-burgundy mb-6">Leave a Review</h3>
+            <form onSubmit={submitReview} className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase tracking-[0.25em] text-burgundy mb-2">Your Name</label>
+                <input
+                  data-testid="review-name"
+                  value={rvForm.name}
+                  onChange={(e) => setRvForm({ ...rvForm, name: e.target.value })}
+                  className="w-full bg-beige-light border border-gold/50 px-4 py-3 text-ink focus:outline-none focus:border-burgundy"
+                />
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-[0.25em] text-burgundy mb-2">Rating</label>
+                <div className="flex gap-2" data-testid="review-rating">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <button
+                      type="button"
+                      key={n}
+                      onClick={() => setRvForm({ ...rvForm, rating: n })}
+                      className="p-1"
+                      aria-label={`${n} stars`}
+                    >
+                      <Star
+                        size={28}
+                        fill={n <= rvForm.rating ? "#C8A96A" : "transparent"}
+                        stroke="#C8A96A"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-[0.25em] text-burgundy mb-2">Your Review</label>
+                <textarea
+                  data-testid="review-comment"
+                  rows={4}
+                  value={rvForm.comment}
+                  onChange={(e) => setRvForm({ ...rvForm, comment: e.target.value })}
+                  className="w-full bg-beige-light border border-gold/50 px-4 py-3 text-ink focus:outline-none focus:border-burgundy"
+                />
+              </div>
+              <button
+                type="submit"
+                data-testid="review-submit"
+                disabled={rvBusy}
+                className="w-full bg-burgundy text-beige py-3 text-sm uppercase tracking-[0.3em] hover:bg-burgundy-dark disabled:opacity-60 flex items-center justify-center gap-2"
+              >
+                {rvBusy ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
+                Post Review
+              </button>
+              <p className="text-xs text-center text-ink/60">
+                Your review appears instantly on this page.
+              </p>
+            </form>
           </div>
         </div>
       </section>

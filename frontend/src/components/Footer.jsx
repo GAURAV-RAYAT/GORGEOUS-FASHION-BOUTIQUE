@@ -60,7 +60,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-gold/20 py-6 text-center text-xs text-beige/60 tracking-wider">
-        © {new Date().getFullYear()} Gorgeous Fashion Boutique · Delhi
+        © {new Date().getFullYear()} Gorgeous Fashion Boutique · Delhi ·{" "}
+        <Link to="/admin/login" className="hover:text-gold" data-testid="footer-admin-link">Admin</Link>
       </div>
     </footer>
   );
