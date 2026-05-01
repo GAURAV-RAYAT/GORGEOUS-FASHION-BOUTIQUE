@@ -34,7 +34,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!token) { nav("/admin/login"); return; }
     refresh();
-  }, []);
+  }, [nav, refresh, token]);
 
   const refresh = async () => {
     try {
