@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppFab from "./components/WhatsAppFab";
@@ -37,6 +38,7 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </Layout>
+        <Analytics />
       </BrowserRouter>
     </SettingsProvider>
   );
