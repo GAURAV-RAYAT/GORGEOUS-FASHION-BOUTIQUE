@@ -137,7 +137,7 @@ class SiteSettings(BaseModel):
     hero_subtitle: str = "Crafted with love in the heart of Delhi — bespoke sarees, lehengas, and gowns for the moments that matter."
     phone: str = "+91 8587008027"
     email: str = "jiyarayat207@gmail.com"
-    address: str = "Govindpuri, Kalkaji Metro No. 08, New Delhi – 110019"
+    address: str = "Govindpuri, Kalkaji, Street no. 8"
     whatsapp: str = "918587008027"
     instagram_url: str = "https://instagram.com/"
     map_embed: str = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.6194447!2d77.2581853!3d28.5394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2sGovindpuri%2C%20Kalkaji%2C%20New%20Delhi!5e0!3m2!1sen!2sin!4v1700000000000"
@@ -234,7 +234,7 @@ def premium_email_wrapper(title: str, body_html: str) -> str:
         <h2 style="color:#6E2C2C;font-size:20px;margin:0 0 12px 0;">{title}</h2>
         {body_html}
         <hr style="border:none;border-top:1px solid #C8A96A;margin:32px 0 16px 0;" />
-        <p style="font-size:12px;color:#5A3A3A;margin:0;">Govindpuri, Kalkaji Metro No. 08, New Delhi – 110019<br/>+91 8587008027 · jiyarayat207@gmail.com</p>
+        <p style="font-size:12px;color:#5A3A3A;margin:0;">Govindpuri, Kalkaji, Street no. 8<br/>+91 8587008027 · jiyarayat207@gmail.com</p>
       </div>
     </div>
     """
