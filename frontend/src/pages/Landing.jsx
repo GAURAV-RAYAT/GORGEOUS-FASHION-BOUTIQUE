@@ -306,7 +306,7 @@ export default function Landing() {
         </h2>
         <div className="space-y-4 text-ink/85 font-body text-sm md:text-base leading-relaxed">
           <p>
-            At <strong>Gorgeous Fashion Boutique (गॉर्जियस Fashion Boutique)</strong>, we craft handmade sarees, bridal lehengas, and designer gowns from our atelier at 1338/8 Govind Puri, Kalkaji, New Delhi. Each piece is designed around the wearer — measured, fitted, and hand-embroidered by our in-house karigars.
+            At <strong>Gorgeous Fashion Boutique (गॉर्जियस Fashion Boutique)</strong>, we craft handmade sarees, bridal lehengas, and designer gowns from our atelier at Govindpuri, Kalkaji, Street no. 8. Each piece is designed around the wearer — measured, fitted, and hand-embroidered by our in-house karigars.
           </p>
           <p>
             <strong>Bridal lehengas near me</strong> — If you're searching for a bridal boutique in Delhi NCR, our team specialises in custom lehenga design: heritage reds, pastel palettes, contemporary sculpted silhouettes, and Indo-Western fusion. We offer private styling consultations, multiple fittings, and delivery across India.
@@ -318,7 +318,7 @@ export default function Landing() {
             <strong>Gown tailor in South Delhi</strong> — Evening gowns, reception outfits, cocktail silhouettes, and sangeet dresses — tailored in organza, silk, velvet, and georgette. Book a visit to the atelier to view our fabric library and embroidery samples.
           </p>
           <p>
-            Visit us at <strong>Govindpuri, Kalkaji Metro No. 08, New Delhi 110019</strong>, call <a href={`tel:${BRAND.phone}`} className="text-burgundy underline">{BRAND.phone}</a>, or <a href={waLink()} target="_blank" rel="noreferrer" className="text-burgundy underline">chat on WhatsApp</a> to begin your design journey.
+            Visit us at <strong>Govindpuri, Kalkaji, Street no. 8</strong>, call <a href={`tel:${BRAND.phone}`} className="text-burgundy underline">{BRAND.phone}</a>, or <a href={waLink()} target="_blank" rel="noreferrer" className="text-burgundy underline">chat on WhatsApp</a> to begin your design journey.
           </p>
         </div>
 

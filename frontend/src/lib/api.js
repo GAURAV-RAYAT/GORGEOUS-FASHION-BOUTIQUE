@@ -1,9 +1,10 @@
 import axios from "axios";
 
-export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-export const API = `${BACKEND_URL}/api`;
+export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL?.replace(/\/$/, "");
+const DEFAULT_BACKEND_URL = window.location.origin + "/_/backend";
+export const API = `${BACKEND_URL || DEFAULT_BACKEND_URL}/api`;
 
-const instance = axios.create({ baseURL: API });
+const instance = axios.create({ baseURL: API, timeout: 15000 });
 
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem("gfb_token");
@@ -20,7 +21,7 @@ export const BRAND = {
   phone: "+91 8587008027",
   whatsapp: "918587008027",
   email: "jiyarayat207@gmail.com",
-  address: "Govindpuri, Kalkaji Metro No. 08, New Delhi – 110019",
+  address: "Govindpuri, Kalkaji, Street no. 8",
   logo: "https://customer-assets.emergentagent.com/job_priceless-germain-8/artifacts/a62v7x5o_Screenshot%202026-04-22%20190513.png",
   instagram: "https://instagram.com/",
 };

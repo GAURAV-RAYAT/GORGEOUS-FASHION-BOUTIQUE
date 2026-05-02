@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import {
@@ -36,7 +36,7 @@ export default function AdminDashboard() {
     refresh();
   }, [nav, refresh, token]);
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     try {
       const [m, b, c, s, r] = await Promise.all([
         api.get("/media"),
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
     } catch (e) {
       if (e?.response?.status === 401) { localStorage.clear(); nav("/admin/login"); }
     }
-  };
+  }, [nav]);
 
   const logout = () => { localStorage.clear(); nav("/admin/login"); };
 
